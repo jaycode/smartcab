@@ -38,14 +38,19 @@ class Environment(object):
         self.status_text = ""
 
         # Road network
-        self.grid_size = (8, 6)  # (cols, rows)
+        self.grid_size = (3, 3)  # (cols, rows)
         self.bounds = (1, 1, self.grid_size[0], self.grid_size[1])
         self.block_size = 100
         self.intersections = OrderedDict()
         self.roads = []
         for x in xrange(self.bounds[0], self.bounds[2] + 1):
             for y in xrange(self.bounds[1], self.bounds[3] + 1):
-                self.intersections[(x, y)] = TrafficLight()  # a traffic light at each intersection
+                # self.intersections[(x, y)] = TrafficLight()  # a traffic light at each intersection
+                if x == 1:
+                    self.intersections[(x, y)] = TrafficLight(state=False, period=5)
+                else:
+                    self.intersections[(x, y)] = TrafficLight(state=True, period=3)
+
 
         for a in self.intersections:
             for b in self.intersections:
@@ -55,7 +60,7 @@ class Environment(object):
                     self.roads.append((a, b))
 
         # Dummy agents
-        self.num_dummies = 3  # no. of dummy agents
+        self.num_dummies = 1  # no. of dummy agents
         for i in xrange(self.num_dummies):
             self.create_agent(DummyAgent)
 
