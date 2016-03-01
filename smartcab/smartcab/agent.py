@@ -104,7 +104,10 @@ class LearningAgent(Agent):
 
             # Update to Q matrix as described in this lesson:
             # https://www.udacity.com/course/viewer#!/c-ud728-nd/l-5446820041/m-634899057            
-            self.Q[(self.prev_state,self.prev_action)] += \
+            # self.Q[(self.prev_state,self.prev_action)] += \
+            # self.learning_rate * (self.prev_reward + self.discount_factor * \
+            #     self._select_Q_action(self.state)[0] - self.Q[(self.prev_state, self.prev_action)])
+            self.Q[(self.prev_state,self.prev_action)] = (1 - self.learning_rate) * self.Q[(self.prev_state,self.prev_action)] + \
             self.learning_rate * (self.prev_reward + self.discount_factor * \
                 self._select_Q_action(self.state)[0] - self.Q[(self.prev_state, self.prev_action)])
 
